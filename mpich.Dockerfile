@@ -1,5 +1,9 @@
-# -------- base ---------
-FROM debian:latest AS base
+FROM debian:latest
+
+ENV MPICH_DIR=/opt/mpich-3.3
+ENV SINGULARITY_MPICH_DIR=$MPICH_DIR
+ENV SINGULARITYENV_APPEND_PATH=$MPICH_DIR/bin
+ENV SINGULAIRTYENV_APPEND_LD_LIBRARY_PATH=$MPICH_DIR/lib
 
 RUN apt-get update && \
     apt-get install -y \
@@ -9,6 +13,7 @@ RUN apt-get update && \
         make \
         gcc \
         g++ \
+        gfortran \
         git \
         libncurses-dev \
         python3 \
@@ -22,18 +27,6 @@ RUN apt-get update && \
         cython3 \
         jupyter \
         ipython3
-
-
-# ------- MPICH -----------
-FROM base AS mpich
-
-ENV MPICH_DIR=/opt/mpich-3.3
-ENV SINGULARITY_MPICH_DIR=$MPICH_DIR
-ENV SINGULARITYENV_APPEND_PATH=$MPICH_DIR/bin
-ENV SINGULAIRTYENV_APPEND_LD_LIBRARY_PATH=$MPICH_DIR/lib
-
-RUN apt-get update && apt-get install -y \
-    gfortran
 
 ENV MPICH_VERSION=3.3
 ENV MPICH_URL="http://www.mpich.org/static/downloads/$MPICH_VERSION/mpich-$MPICH_VERSION.tar.gz"
