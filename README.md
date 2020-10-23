@@ -1,5 +1,7 @@
 # LFPydebian
 
+[![Docker](https://img.shields.io/badge/Docker-yes-green.svg)](https://hub.docker.com/r/lfpy/lfpydebian)
+
 ## Debian + LFPy Docker recipe
 
 We provide a Docker (https://www.docker.com) container build file with LFPy.
